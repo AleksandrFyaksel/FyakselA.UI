@@ -1,32 +1,81 @@
-//using System.Diagnostics;
-//using FyakselA.UI.Models;
-//using Microsoft.AspNetCore.Mvc;
+﻿using FyakselA.UI.Models;
+using FyakselA.UI.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
-//namespace FyakselA.UI.Controllers
-//{
-//    public class HomeController : Controller
-//    {
-//        private readonly ILogger<HomeController> _logger;
+namespace FyakselA.UI.Controllers
+{
+    public class HomeController : Controller
+    {
+        private readonly ILogger<HomeController> _logger;
+        private readonly List<ListDemo> _listData;
+        private readonly ISuperService _superService; 
+        private readonly IEnumerable<Book> books; 
 
-//        public HomeController(ILogger<HomeController> logger)
-//        {
-//            _logger = logger;
-//        }
+        public HomeController(ILogger<HomeController> logger, ISuperService service)
+        {
+            _logger = logger;
+            _superService = service; 
 
-//        public IActionResult Index()
-//        {
-//            return View();
-//        }
+            
+            books = new List<Book>
+            {
+                new Book { BookId = 1, Name = "Book1", Author = "Author1" },
+                new Book { BookId = 2, Name = "Book2", Author = "Author2" },
+                new Book { BookId = 3, Name = "Book3", Author = "Author3" }
+            };
 
-//        public IActionResult Privacy()
-//        {
-//            return View();
-//        }
+            
+            _listData = new List<ListDemo>
+            {
+                new ListDemo { Id = 1, Name = "Item 1" },
+                new ListDemo { Id = 2, Name = "Item 2" },
+                new ListDemo { Id = 3, Name = "Item 3" }
+            };
+        }
 
-//        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-//        public IActionResult Error()
-//        {
-//            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-//        }
-//    }
-//}
+        public IActionResult Index()
+        {
+            ViewData["Books"] = books;
+            ViewData["BooksSelect"] = new SelectList(books, "BookId", "Name");
+            ViewData["text"] = "Лабораторная работа №2";
+
+            SelectList data = new SelectList(_listData, "Id", "Name");
+
+            // Передача данных (только одной!) модели (data) в представление (@model SelectList)
+            return View(data);
+        }
+
+        //[Authorize(Policy ="admin")]
+        //--- Для примера: HTML-helper, Tag-helper ----------
+        public IActionResult TagHelperDemo()
+        {
+            return View();
+        }
+        //--- ------------------------------------
+        public IActionResult LayoutDemo()
+        {
+            return View();
+        }
+
+        //-------Пример:Маршрутизация --------------
+        [Route("Show")]
+        [Route("Show/Page_{pageNo:int}")]
+        //--- ------------------------------------
+        //--- Scaffolding – автоматическая генерация представления на основании модели ------
+        public IActionResult ShowBooks()
+        {
+            return View(books);
+        }
+        //--- Для примера: -------
+    }
+
+    public class ListDemo
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        
+    }
+}
