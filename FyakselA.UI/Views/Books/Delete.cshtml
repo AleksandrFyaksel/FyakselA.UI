@@ -1,0 +1,36 @@
+﻿@model FyakselA.UI.Models.Book
+
+@{
+    ViewData["Title"] = "Delete"; // Установка заголовка страницы
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Book</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name) // Отображение названия книги
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name) // Отображение значения названия книги
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Author) // Отображение автора книги
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Author) // Отображение значения автора книги
+        </dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <!-- Указание действия для формы и метод POST -->
+        <input type="hidden" asp-for="BookId" /> <!-- Скрытое поле для передачи ID книги -->
+        <input type="submit" value="Delete" class="btn btn-danger" /> <!-- Кнопка для подтверждения удаления -->
+        |
+        <a asp-action="Index">Back to List</a> <!-- Ссылка для возврата к списку книг -->
+    </form>
+</div>

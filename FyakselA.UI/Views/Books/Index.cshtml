@@ -1,0 +1,43 @@
+﻿@model IEnumerable<FyakselA.UI.Models.Book>
+
+@{
+    ViewData["Title"] = "Index"; // Установка заголовка страницы
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Указание макета
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a> <!-- Ссылка для создания новой книги -->
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Name) // Отображение заголовка для столбца "Name"
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Author) // Отображение заголовка для столбца "Author"
+            </th>
+            <th></th> <!-- Пустой столбец для действий -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) // Перебор всех книг в модели
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name) // Отображение названия книги
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author) // Отображение автора книги
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a> | <!-- Ссылка для редактирования книги -->
+                    <a asp-action="Details" asp-route-id="@item.BookId">Details</a> | <!-- Ссылка для просмотра деталей книги -->
+                    <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a> <!-- Ссылка для удаления книги -->
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

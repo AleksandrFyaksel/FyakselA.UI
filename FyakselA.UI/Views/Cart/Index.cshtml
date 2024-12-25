@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Index"; // Установка заголовка страницы
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title> <!-- Использование заголовка из ViewBag -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> <!-- Подключение Bootstrap для стилизации -->
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Book Management System</h1>
+        <p>This is the index page where you can manage your books.</p>
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Create New Book</a> <!-- Кнопка для создания новой книги -->
+        </p>
+        <h2>Book List</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* Здесь можно добавить код для отображения списка книг *@
+                @* Пример: *@
+                @foreach (var book in Model) // Model содержит список книг
+                {
+                    <tr>
+                        <td>@book.Name</td>
+                        <td>@book.Author</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@book.BookId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@book.BookId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@book.BookId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

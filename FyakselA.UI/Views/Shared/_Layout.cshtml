@@ -4,43 +4,63 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FyakselA.UI</title>
-    <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="~/FyakselA.UI.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FyakselA.UI</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
+        <!-- Панель навигации -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-- меню сайта -->
+            <a class="navbar-brand" asp-action="Index" asp-controller="Home">FyakselA</a>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" asp-action="Index" asp-controller="Home">Лб 4</a>
+                <a class="nav-item nav-link" asp-action="Index" asp-controller="Product">Каталог</a>
+                <a class="nav-item nav-link" asp-area="Admin" asp-page="/Index">Администрирование</a>
+                <a class="nav-item nav-link" asp-action="ShowBooks" asp-controller="Home">Scaffolding</a>
+                <a class="nav-item nav-link" asp-action="Index" asp-controller="Books">Scaffold</a>
             </div>
-        </nav>
-    </header>
+            <div class ="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+            <!-- меню сайта - конец -->
+            <!-- Информация пользователя -->
+            <!-- код перешел ~/Components/Cart/Default.cshtml-->
+            <!-- код перешел в _UserInfoPartial.cshtml -->
+            <partial name="_UserInfoPartial"></partial>
+            <!-- Информация пользователя - конец -->
+                </ul>
+            </div>
+        </nav><!-- Панель навигации - конец -->
+    </header><!-- header - конец -->
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            @* т.к. _Layout - это базовый файл (т.е. код из него повторяется на всех остальных страницах) для всех остальних (типа Index.cshtml и т.п.), то здесь подставляется страница *@
+            <div>
+               @*  <h4>Разметка макета 1</h4>
+                @RenderSection("Header", required: false) *@<!-- Header - название секции по своему усмотрению, чтоб отражало что хотите -->
+               @*  <h4>Разметка макета 2</h4> *@
+                @RenderBody()
+                @* <h4>Разметка макета 3</h4>
+                @RenderSection("Footer", required: false)
+                <h4>Разметка макета 4</h4> *@
+            </div>
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - FyakselA.UI - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer>
+        <div class="navbar navbar-dark navbar-expand-md bg-dark">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-item nav-link" href="http://www.facebook.com">
+                    <i class="fa-brands fa-facebook-f fa-2x"></i>
+                </a>
+                <a class="nav-item nav-link" href="http://www.vk.com">
+                    <i class="fa-brands fa-vk fa-2x"></i>
+                </a>
+                <a class="nav-item nav-link" href="http://www.twitter.com">
+                    <i class="fa-brands fa-twitter fa-2x"></i>
+                </a>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

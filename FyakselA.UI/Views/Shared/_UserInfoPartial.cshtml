@@ -1,0 +1,65 @@
+﻿@using FyakselA.UI.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+@await Component.InvokeAsync("Cart")
+<div class="dropdown ms-4 nav-color">
+        <button class="btn btn-secondary dropdown-toggle d-flex align-items-center"
+            type="button" id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+       @*  <i class="fa-regular fa-address-book"></i>
+        User@gmail.com
+         *@
+            @User.Claims.FirstOrDefault(c => c.Type.Equals("Name", StringComparison.OrdinalIgnoreCase))?.Value
+
+            @* <img src="~/images/default_profile.png" width="30"
+				 alt="User" class="rounded nav-color" /> *@
+
+            <img src="@Url.Action("GetAvatar","Image")"
+                 width="30" alt="User"
+                 class="rounded nav-color" style="border: 2px solid #ddd;" />
+           @*  <img src="/Image/GetAvatar"
+                 width="30"
+                 alt="User" class="rounded nav-color" /> *@
+     
+
+    </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton" style="left: auto; right: 0; min-width: 200px;">
+        <li>
+				@*  <span class="dropdown-item-text">
+                    <img src="~/images/1.jpg" width="30"
+                     alt="User" class="rounded" />
+                    @User.Identity?.Name!
+                bart@gmail.com
+			</span>*@
+                <span class="dropdown-item-text d-flex align-items-center">
+                    <img src="@Url.Action("GetAvatar", "Image")"
+                         alt="User" class="rounded nav-color" width="50" style="border: 2px solid #ddd;" />
+
+                   @*  <img src="/Image/GetAvatar"
+                         width="50" alt="User" class="rounded" /> *@
+
+                         @User.Identity?.Name
+                </span>
+
+        </li>
+            <li><hr class="dropdown-divider"></li>
+        <li>
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnurl="/">
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    </ul>
+</div>
+}
+else
+{
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="nav-item nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </div>
+}
