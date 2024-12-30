@@ -2,7 +2,9 @@
 using System.Collections.Generic; 
 using System.Linq; 
 using FyakselA.UI.Models; 
-using FyakselA.UI.Data; 
+using FyakselA.UI.Data;
+using GR30323.Domain.Entities;
+
 
 namespace FyakselA.UI.Services
 {
@@ -25,7 +27,7 @@ namespace FyakselA.UI.Services
             Console.WriteLine("Список книг в TestService:");
             foreach (var book in books)
             {
-                Console.WriteLine(book.Name);
+                Console.WriteLine(book.Title);
             }
         }
     }
@@ -51,7 +53,7 @@ namespace FyakselA.UI.Services
             Console.WriteLine("Список книг в ProductionService:");
             foreach (var book in books)
             {
-                Console.WriteLine(book.Name);
+                Console.WriteLine(book.Title);
             }
         }
     }

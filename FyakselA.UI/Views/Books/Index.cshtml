@@ -1,43 +1,60 @@
-﻿@model IEnumerable<FyakselA.UI.Models.Book>
+﻿@model IEnumerable<GR30323.Domain.Entities.Book>
 
-@{
-    ViewData["Title"] = "Index"; // Установка заголовка страницы
-    Layout = "~/Views/Shared/_Layout.cshtml"; // Указание макета
-}
+<div class="container">
+    <div class="row mb-3">
+       
+        <div class="col-2">
+            <ul class="nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       data-bs-toggle="dropdown"
+                       href="#"
+                       role="button"
+                       aria-expanded="false">
+                        @ViewData["currentCategory"]
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item"
+                               asp-controller="Product"
+                               asp-route-category="@null">Все</a>
+                        </li>
+                        @foreach (var category in (IEnumerable<Category>)ViewData["categories"])
+                        {
+                            <li>
+                                <a class="dropdown-item"
+                                   asp-controller="Product"
+                                   asp-route-category="@category.NormalizedName">
+                                    @category.Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a> <!-- Ссылка для создания новой книги -->
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Name) // Отображение заголовка для столбца "Name"
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.First().Author) // Отображение заголовка для столбца "Author"
-            </th>
-            <th></th> <!-- Пустой столбец для действий -->
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) // Перебор всех книг в модели
+    <!-- Сетка карточек книг -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var book in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name) // Отображение названия книги
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author) // Отображение автора книги
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a> | <!-- Ссылка для редактирования книги -->
-                    <a asp-action="Details" asp-route-id="@item.BookId">Details</a> | <!-- Ссылка для просмотра деталей книги -->
-                    <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a> <!-- Ссылка для удаления книги -->
-                </td>
-            </tr>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="@book.Image" class="card-img-top" alt="@book.Title">
+                    <div class="card-body">
+                        <h5 class="card-title">@book.Title</h5>
+                        <p class="card-text">@book.Description</p>
+                        <a asp-controller="Cart"
+                           asp-action="Add"
+                           asp-route-id="@book.Id"
+                           asp-route-returnurl="@ViewData["returnUrl"]"
+                           class="btn btn-primary">
+                            Добавить в корзину
+                        </a>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>

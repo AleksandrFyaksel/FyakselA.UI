@@ -26,16 +26,16 @@ namespace GR30323.API.Controllers
 
         // GET: api/Books
         [HttpGet]
-        public async Task<ActionResult<ResponseData<ListModel<Book>>>> GetBooks(string? category, int pageNo = 1, int pageSize = 3)
+        public async Task<ActionResult<ResponseData<ListModel<Data.Book>>>> GetBooks(string? category, int pageNo = 1, int pageSize = 3)
         {
-            var result = new ResponseData<ListModel<Book>>();
+            var result = new ResponseData<ListModel<Data.Book>>();
             var data = _context.Books.Include(d => d.Category)
                 .Where(d => string.IsNullOrEmpty(category) || d.Category.NormalizedName.Equals(category));
 
             int totalPages = (int)Math.Ceiling(data.Count() / (double)pageSize);
             if (pageNo > totalPages) pageNo = totalPages;
 
-            var listData = new ListModel<Book>()
+            var listData = new ListModel<Data.Book>()
             {
                 Items = await data.Skip((pageNo - 1) * pageSize).Take(pageSize).ToListAsync(),
                 CurrentPage = pageNo,
@@ -55,9 +55,9 @@ namespace GR30323.API.Controllers
 
         // GET: api/Books/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ResponseData<Book>>> GetBook(int id)
+        public async Task<ActionResult<ResponseData<Data.Book>>> GetBook(int id)
         {
-            var result = new ResponseData<Book>();
+            var result = new ResponseData<Data.Book>();
             var book = await _context.Books.Include(b => b.Category).FirstOrDefaultAsync(b => b.Id == id);
 
             result.Data = book;
@@ -73,7 +73,7 @@ namespace GR30323.API.Controllers
 
         // PUT: api/Books/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBook(int id, Book book)
+        public async Task<IActionResult> PutBook(int id, Data.Book book)
         {
             if (id != book.Id)
             {
@@ -103,7 +103,7 @@ namespace GR30323.API.Controllers
 
         // POST: api/Books
         [HttpPost]
-        public async Task<ActionResult<Book>> PostBook(Book book)
+        public async Task<ActionResult<Data.Book>> PostBook(Data.Book book)
         {
             _context.Books.Add(book);
             await _context.SaveChangesAsync();
@@ -123,7 +123,7 @@ namespace GR30323.API.Controllers
 
             // Путь к папке wwwroot/Images
             var imagesPath = Path.Combine(_env.WebRootPath, "Images");
-            // Удалить старый файл, если он существует
+            
             if (!string.IsNullOrEmpty(book.Image))
             {
                 var oldFileName = Path.GetFileName(new Uri(book.Image).LocalPath);

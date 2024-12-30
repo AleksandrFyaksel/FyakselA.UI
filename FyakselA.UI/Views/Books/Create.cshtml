@@ -1,4 +1,4 @@
-﻿@model FyakselA.UI.Models.Book
+﻿@model GR30323.Domain.Entities.Book
 
 @{
     ViewData["Title"] = "Create";
@@ -12,30 +12,30 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" method="post">
-            <!-- Указание действия для формы и метод POST -->
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Отображение ошибок валидации -->
+          
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div> 
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label> <!-- Метка для поля "Name" -->
-                <input asp-for="Name" class="form-control" /> <!-- Поле ввода для "Name" -->
-                <span asp-validation-for="Name" class="text-danger"></span> <!-- Ошибка валидации для "Name" -->
+                <label asp-for="Title" class="control-label"></label> 
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span> 
             </div>
             <div class="form-group">
-                <label asp-for="Author" class="control-label"></label> <!-- Метка для поля "Author" -->
-                <input asp-for="Author" class="form-control" /> <!-- Поле ввода для "Author" -->
-                <span asp-validation-for="Author" class="text-danger"></span> <!-- Ошибка валидации для "Author" -->
+                <label asp-for="Author" class="control-label"></label> 
+                <input asp-for="Author" class="form-control" /> 
+                <span asp-validation-for="Author" class="text-danger"></span> 
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" /> <!-- Кнопка отправки формы -->
+                <input type="submit" value="Create" class="btn btn-primary" /> 
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a> <!-- Ссылка для возврата к списку книг -->
+    <a asp-action="Index">Back to List</a> 
 </div>
 
 @* Подключение валидационного скрипта *@
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" /> <!-- Подключение скриптов для валидации -->
+    <partial name="_ValidationScriptsPartial" /> 
 }

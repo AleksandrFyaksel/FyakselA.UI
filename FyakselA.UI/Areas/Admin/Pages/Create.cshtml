@@ -14,24 +14,19 @@
         <form method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Book.Name" class="control-label"></label>
-                <input asp-for="Book.Name" class="form-control" />
-                <span asp-validation-for="Book.Name" class="text-danger"></span>
+                <label asp-for="Book.Title" class="control-label"></label>
+                <input asp-for="Book.Title" class="form-control" />
+                <span asp-validation-for="Book.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Book.Description" class="control-label"></label>
                 <input asp-for="Book.Description" class="form-control" />
                 <span asp-validation-for="Book.Description" class="text-danger"></span>
             </div>
-           @*  <div class="form-group">
-                <label asp-for="Book.Image" class="control-label"></label>
-                <input asp-for="Book.Image" class="form-control" />
-                <span asp-validation-for="Book.Image" class="text-danger"></span>
-            </div> *@
             <div class="form-group">
-                <label asp-for="Book.Avtor" class="control-label"></label>
-                <input asp-for="Book.Avtor" class="form-control" />
-                <span asp-validation-for="Book.Avtor" class="text-danger"></span>
+                <label asp-for="Book.Author" class="control-label"></label>
+                <input asp-for="Book.Author" class="form-control" />
+                <span asp-validation-for="Book.Author" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Book.PublicationDate" class="control-label"></label>
@@ -45,11 +40,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Book.CategoryId" class="control-label"></label>
-                <select asp-for="Book.CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select asp-for="Book.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="mb-3">
                 <label asp-for="Image" class="form-label">Изображение</label>
-                <input asp-for="Image" class="form-control" />
+                <input asp-for="Image" class="form-control" type="file" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

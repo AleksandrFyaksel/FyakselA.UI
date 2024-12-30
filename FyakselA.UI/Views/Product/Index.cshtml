@@ -1,72 +1,99 @@
-﻿@model FyakselA.UI.Models.Book 
+﻿@model List<GR30323.Domain.Entities.Books >
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Каталог книг";
 }
 
 <main class="container">
-    <p><b><h2>Лаб. работа 4 (страница Product/Index.cshtml)</h2></b></p>
+    <h2> Книга 4 (страница Product/Index.cshtml)</h2>
+
+    <h2>Каталог книг</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Описание</th>
+                <th>Цена</th>
+                <th>Изображение</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Author</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price</td>
+                    <td><img src="@item.Image" alt="@item.Title" style="width: 100px; height: auto;" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
     <div style="background: #cc5;">
-        <b>
-            <h2>Список</h2>
-        </b>
-        <form>
-            <ol type="A" class="js-paddle-items" style="overflow-x: visible;">
-                <li class="single-link js-nav-menu uhf-menu-item" style="overflow-x: visible;">
-                    <a href="#">Продукт 1</a>
-                </li>
-                <li class="single-link js-nav-menu uhf-menu-item" style="overflow-x: visible;">
-                    <a href="#">Продукт 2</a>
-                </li>
-                <li class="single-link js-nav-menu uhf-menu-item" style="overflow-x: visible;">
-                    <a href="#">Продукт 3</a>
-                </li>
-            </ol>
-        </form>
+        <h2>Список</h2>
+        <ol type="A" class="js-paddle-items">
+            <li class="single-link js-nav-menu uhf-menu-item">
+                <a href="#">Продукт 1</a>
+            </li>
+            <li class="single-link js-nav-menu uhf-menu-item">
+                <a href="#">Продукт 2</a>
+            </li>
+            <li class="single-link js-nav-menu uhf-menu-item">
+                <a href="#">Продукт 3</a>
+            </li>
+        </ol>
     </div>
 
     <hr class="my-4">
-    <h4 style="background: #ac5;">Ввод списка Лекция №2 - СТРОГО ТИПИЗИРОВАННЫЕ вспомогательные методы Html</h4>
 
+    <h4 style="background: #ac5;">Добавить новую книгу</h4>
     <div>
         <form method="post" asp-controller="Product" asp-action="Create">
-            <label for="Name">Имя:</label>
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Введите имя" })
-            <label for="Author">Автор:</label>
-            @Html.TextBoxFor(m => m.Author, new { @class = "form-control", placeholder = "Введите автора" })
-            <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="mb-3">
+                <label for="Title">Название:</label>
+                @Html.TextBoxFor(m => m.First().Title, new { @class = "form-control", placeholder = "Введите название книги" })
+            </div>
+            <div class="mb-3">
+                <label for="Author">Автор:</label>
+                @Html.TextBoxFor(m => m.First().Author, new { @class = "form-control", placeholder = "Введите автора книги" })
+            </div>
+            <input type="submit" value="Создать" class="btn btn-primary" />
         </form>
     </div>
 
-    <h4 style="background: #ac5;">Лекция №2 - ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ URL (URL HELPERS)</h4>
+    <h4 style="background: #ac5;">Пример использования URL Helpers</h4>
     <span>
-        @Url.Action("Browse", "Store", new { genre = "Jazz" }, null) <!--  использование URL Helper -->
+        @Url.Action("Browse", "Store", new { genre = "Jazz" }) 
     </span>
+
     <hr class="my-4">
 
-    <p><b><h2>Лекция №3</h2></b></p>
     <h4 style="background: #ac5;">Пример: Tag-helpers для тэга form</h4>
-
     <form asp-antiforgery="true" asp-controller="Product" asp-action="Index">
-        Название: <input asp-for="Name" class="form-control" />
-        Автор: <input asp-for="Author" class="form-control" />
-        <input type="submit" value="Submit" class="btn btn-primary" />
+        <div class="mb-3">
+            <label for="Name">Название:</label>
+            <input asp-for="Title" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="Author">Автор:</label>
+            <input asp-for="Author" class="form-control" />
+        </div>
+        <input type="submit" value="Отправить" class="btn btn-primary" />
     </form>
-    <hr class="my-4">
 
-    <h4 style="background: #ac5;">Пример: применение созданных Tag-helpers (email, bold)</h4>
-    <p bold>
-        <email mail-to="anymail"></email> <!-- использование пользовательского Tag Helper -->
-    </p>
     <hr class="my-4">
 
     <h4 style="background: #ac5;">Пример: получение ссылки через URL-helpers</h4>
     <span>
-        @Url.Action("Index", "Product") <!-- использование URL Helper -->
+        @Url.Action("Index", "Product") 
     </span>
 
     <hr class="my-4">
-    <b><h2>Неявные выражения Razor: сегодня @DateTime.Now.ToString("dd MMM yyyy HH:mm")</h2></b>
-    <b><h2>Явные выражения Razor: завтра @((DateTime.Now + TimeSpan.FromDays(1)).ToString("dd MMM yyyy"))</h2></b>
-    <br />
+
+    <h2>Текущая дата: @DateTime.Now.ToString("dd MMM yyyy HH:mm")</h2>
+    <h2>Завтра: @((DateTime.Now + TimeSpan.FromDays(1)).ToString("dd MMM yyyy"))</h2>
 </main>

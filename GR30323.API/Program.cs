@@ -9,7 +9,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // Настройка контекста базы данных
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(connectionString));
+    options.UseSqlite(connectionString)); 
 
 // Добавление сервисов в контейнер
 builder.Services.AddControllers();
@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
 // Настройка HTTPS
 builder.Services.AddHttpsRedirection(options =>
 {
-    options.HttpsPort = 7202; 
+    options.HttpsPort = 7202;
     options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
 });
 
@@ -49,18 +49,17 @@ var app = builder.Build();
 // Настройка конвейера HTTP-запросов
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
+    app.UseDeveloperExceptionPage(); // Страница ошибок для разработки
+    app.UseSwagger(); // Включение Swagger
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
         c.RoutePrefix = "swagger"; // Доступ к Swagger UI по /swagger
     });
 }
-
 else
 {
-    // В продакшене добавляем дополнительную защиту
+    
     app.UseHsts(); // Добавляет заголовок Strict-Transport-Security
 }
 
@@ -75,7 +74,7 @@ app.UseAuthorization(); // Настройка авторизации
 
 app.MapControllers(); // Настройка маршрутов для контроллеров
 
-// Инициализация данных (закомментировано в DbInitializer.cs)
+
 // await DbInitializer.SeedData(app);
 
 app.Run(); // Запуск приложения

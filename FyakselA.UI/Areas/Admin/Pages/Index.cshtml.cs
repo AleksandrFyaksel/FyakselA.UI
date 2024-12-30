@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using GR30323.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
+using FyakselA.UI.Services;
 
 namespace FyakselA.UI.Areas.Admin.Pages
 {

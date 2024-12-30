@@ -1,29 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace GR30323.Domain.Entities
 {
     public class Book
     {
         public int Id { get; set; }
-        public required string Name { get; set; } 
-        public required string Description { get; set; } 
-        public string? Image { get; set; } 
 
-        public string Avtor { get; set; } 
-      
-        public int PublicationDate { get; set; } 
-        public double Price { get; set; } 
+        [Required(ErrorMessage = "Название книги обязательно для заполнения.")]
+        [Display(Name = "Название книги")]
+        public required string Title { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Описание книги обязательно для заполнения.")]
+        public required string Description { get; set; } = string.Empty;
 
+        public string? Image { get; set; }
+        public string Author { get; set; } = string.Empty;
 
-        //навигационные поля
+        [Required(ErrorMessage = "Дата публикации обязательна.")]
+        public int PublicationDate { get; set; }
+
+        [Required(ErrorMessage = "Цена обязательна.")]
+        public double Price { get; set; }
+
+        // Навигационные поля
         public int CategoryId { get; set; }
-        //[JsonIgnore] //игнорирование при сериализации
         public Category? Category { get; set; }
-
+        public bool Success { get; set; }
+        public object Data { get; set; }
+        public string? ErrorMessage { get; set; }
     }
 }

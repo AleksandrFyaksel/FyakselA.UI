@@ -13,7 +13,7 @@ namespace FyakselA.UI.Session
         {
             var item = session.GetString(key);
             return item == null
-            ? Activator.CreateInstance<T>() // или default(T)
+            ? Activator.CreateInstance<T>() 
             : JsonSerializer.Deserialize<T>(item);
         }
     }
