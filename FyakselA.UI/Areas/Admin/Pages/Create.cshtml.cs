@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using GR30323.Domain.Entities;
+using System.IO;
+using System.Threading.Tasks;
+using FyakselA.UI.Services;
 
 namespace FyakselA.UI.Areas.Admin.Pages
 {
@@ -11,7 +14,7 @@ namespace FyakselA.UI.Areas.Admin.Pages
         private readonly IBookService _productService = productService;
 
         [BindProperty]
-        public Book Book { get; set; } = new Book(); // Инициализация по умолчанию
+        public Book Book { get; set; } = new Book(); 
 
         [BindProperty]
         public IFormFile? Image { get; set; }
@@ -28,6 +31,17 @@ namespace FyakselA.UI.Areas.Admin.Pages
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+
+            
+            if (Image != null)
+            {
+                var filePath = Path.Combine("wwwroot/images", Image.FileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await Image.CopyToAsync(stream);
+                }
+                Book.Image = "/images/" + Image.FileName; 
             }
 
             await _productService.CreateBookAsync(Book, Image);

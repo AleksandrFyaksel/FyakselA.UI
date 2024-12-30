@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using GR30323.Domain.Entities;
 
 namespace FyakselA.UI.Controllers
 {
@@ -22,9 +23,9 @@ namespace FyakselA.UI.Controllers
             
             books = new List<Book>
             {
-                new Book { BookId = 1, Name = "Book1", Author = "Author1" },
-                new Book { BookId = 2, Name = "Book2", Author = "Author2" },
-                new Book { BookId = 3, Name = "Book3", Author = "Author3" }
+                new Book { Id = 1, Title = "Book1", Author = "Author1" },
+                new Book { Id = 2, Title = "Book2", Author = "Author2" },
+                new Book { Id = 3, Title = "Book3", Author = "Author3" }
             };
 
             

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using GR30323.Domain.Entities;
+using FyakselA.UI.Services;
 
 namespace FyakselA.UI.Areas.Admin.Pages
 {
@@ -17,7 +18,7 @@ namespace FyakselA.UI.Areas.Admin.Pages
         }
 
         [BindProperty]
-        public Book Book { get; set; } = new Book(); // Инициализация по умолчанию
+        public Book Book { get; set; } = new Book(); 
         public string? ErrorMessage { get; set; }
         public IFormFile? Image { get; set; }
 
@@ -32,7 +33,7 @@ namespace FyakselA.UI.Areas.Admin.Pages
             {
                 return NotFound();
             }
-            Book = response.Data;
+            Book = (Book)response.Data;
 
             var categoryListData = await _categoryService.GetCategoryListAsync();
             ViewData["CategoryId"] = new SelectList(categoryListData.Data, "Id", "Name");

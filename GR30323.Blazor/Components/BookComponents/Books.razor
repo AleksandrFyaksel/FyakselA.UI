@@ -1,30 +1,27 @@
 ﻿@page "/books"
 @rendermode InteractiveServer
+@using GR30323.Domain.Entities
 
 <CascadingValue Value="BookService">
     <BooksList BookSelected="ShowDetails" />
     <Pager />
 </CascadingValue>
 
-
-
 <BookDetails Book="SelectedBook" />
 
-
 @code {
+    [Inject]
+    public IBookService<Book> BookService { get; set; }
 
-    [Inject] IBookService<Book> BookService { get; set; }
+    private Book? SelectedBook { get; set; } 
 
-    [Parameter]
-    public Book SelectedBook { get; set; }
     protected override async Task OnInitializedAsync()
     {
         await BookService.GetBooks();
     }
+
     void ShowDetails(int id)
     {
-        SelectedBook = BookService.Books.First(d => d.Id == id);
+        SelectedBook = BookService.Books.FirstOrDefault(b => b.Id == id);
     }
-
-
 }

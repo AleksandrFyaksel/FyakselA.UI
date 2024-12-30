@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="..\GR30323.Blazor\Components\BookComponents\Component.razor" Link="Component.razor" />
+  </ItemGroup>
+
 </Project>

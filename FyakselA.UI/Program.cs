@@ -36,12 +36,20 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 // Регистрация ISuperService
 builder.Services.AddScoped<ISuperService, SuperService>();
 
-// Регистрация FakeEmailSender для имитации отправки электронных писем
+// Регистрация EmailSender для отправки электронных писем
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+
+// Регистрация FakeEmailSender для имитации отправки электронных писем (для тестирования)
 builder.Services.AddTransient<IEmailSender, FakeEmailSender>();
 
-
+// Регистрация контроллеров с представлениями
 builder.Services.AddControllersWithViews();
 
+// Регистрация сервисов для работы с книгами и категориями
+builder.Services.AddScoped<ICategoryService, MemoryCategoryService>();
+builder.Services.AddScoped<IBookService, MemoryBookService>();
+
+// Добавление поддержки сессий
 builder.Services.AddSession();
 
 var app = builder.Build();
@@ -49,28 +57,28 @@ var app = builder.Build();
 // Настройка конвейера обработки HTTP-запросов.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+    app.UseMigrationsEndPoint(); 
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    app.UseExceptionHandler("/Home/Error"); 
+    app.UseHsts(); // Включение HSTS
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
+app.UseHttpsRedirection(); // Перенаправление на HTTPS
+app.UseStaticFiles(); // Обслуживание статических файлов
+app.UseRouting(); // Включение маршрутизации
 
-app.UseSession(); 
+app.UseSession(); // Использование сессий
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication(); // Аутентификация
+app.UseAuthorization(); // Авторизация
 
 // Настройка маршрутов
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapRazorPages();
+app.MapRazorPages(); // Поддержка Razor Pages
 
-app.Run();
+app.Run(); // Запуск приложения

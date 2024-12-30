@@ -39,25 +39,25 @@ namespace GR30323.Tests
                 NormalizedName = "FICTION"
             };
 
-            var book1 = new Book
+            var book1 = new Domain.Entities.Book
             {
                 Id = 1,
-                Name = "Book 1",
+                Title = "Book 1",
                 Description = "Description for Book 1", 
                 Image = "image1.jpg",
-                Avtor = "Author 1", 
+                Author = "Author 1", 
                 PublicationDate = 2021,
                 Price = 19.99,
                 Category = category
             };
 
-            var book2 = new Book
+            var book2 = new Domain.Entities.Book
             {
                 Id = 2,
-                Name = "Book 2",
+                Title = "Book 2",
                 Description = "Description for Book 2",
                 Image = "image2.jpg",
-                Avtor = "Author 2", 
+                Author = "Author 2", 
                 PublicationDate = 2022,
                 Price = 29.99,
                 Category = category
@@ -88,12 +88,12 @@ namespace GR30323.Tests
                 NormalizedName = "FICTION" 
             };
 
-            var book = new Book
+            var book = new Domain.Entities.Book
             {
                 Id = 1,
-                Name = "Book 1",
-                Description = "Description for Book 1", 
-                Avtor = "Author 1", 
+                Title = "Book 1",
+                Description = "Description for Book 1",
+                Author = "Author 1", 
                 PublicationDate = 2021,
                 Price = 19.99,
                 Category = category
@@ -137,9 +137,9 @@ namespace GR30323.Tests
 
             var book = new Book
             {
-                Name = "New Book",
+                Title = "New Book",
                 Description = "Description for New Book", 
-                Avtor = "New Author", 
+                Author = "New Author", 
                 PublicationDate = 2023,
                 Price = 15.99,
                 Category = category
@@ -170,9 +170,9 @@ namespace GR30323.Tests
             var book = new Book
             {
                 Id = 1,
-                Name = "Book to Delete",
-                Description = "Description for Book to Delete", 
-                Avtor = "Author to Delete", 
+                Title = "Book to Delete",
+                Description = "Description for Book to Delete",
+                Author = "Author to Delete", 
                 PublicationDate = 2021,
                 Price = 19.99,
                 Category = category

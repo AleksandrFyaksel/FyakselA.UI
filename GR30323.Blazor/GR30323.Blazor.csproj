@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GR30323\GR30323.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

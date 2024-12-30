@@ -1,4 +1,8 @@
 using GR30323.Blazor.Components;
+using GR30323.Blazor.Services;
+using GR30323.Domain.Entities;
+using GR30323.Domain.Models;
+using System.Net.Http.Json;
 
 namespace GR30323.Blazor
 {
@@ -8,24 +12,26 @@ namespace GR30323.Blazor
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // Добавление сервисов в контейнер
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
+            // Регистрация ApiBookService как IBookService
+            builder.Services.AddHttpClient<IBookService<Book>, ApiBookService>(c =>
+                c.BaseAddress = new Uri("https://localhost:7002/api/books"));
+            builder.Services.AddScoped<IBookService<Book>, ApiBookService>();
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Конфигурация конвейера HTTP-запросов
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
-
             app.UseAntiforgery();
-
             app.MapStaticAssets();
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();

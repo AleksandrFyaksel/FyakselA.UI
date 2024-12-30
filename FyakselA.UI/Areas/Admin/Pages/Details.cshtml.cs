@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using GR30323.Domain.Entities;
+using FyakselA.UI.Services;
 
 
 namespace FyakselA.UI.Areas.Admin.Pages
@@ -40,7 +41,7 @@ namespace FyakselA.UI.Areas.Admin.Pages
                     {
                         return NotFound();
                     }
-                    Book = response.Data;
+                    Book = (Book)response.Data;
                 }
                 else
                 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using GR30323.Domain.Entities;
+using FyakselA.UI.Services;
 
 namespace FyakselA.UI.Areas.Admin.Pages
 {
@@ -14,7 +15,7 @@ namespace FyakselA.UI.Areas.Admin.Pages
         }
 
         [BindProperty]
-        public Book Book { get; set; } = new Book(); // Инициализация по умолчанию
+        public Book Book { get; set; } = new Book(); 
 
         public string? ErrorMessage { get; set; }
 
