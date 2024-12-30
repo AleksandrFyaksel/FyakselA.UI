@@ -29,5 +29,6 @@ namespace GR30323.Domain.Entities
         public bool Success { get; set; }
         public object Data { get; set; }
         public string? ErrorMessage { get; set; }
+        public int BookId { get; set; }
     }
 }
